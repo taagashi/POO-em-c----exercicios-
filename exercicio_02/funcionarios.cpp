@@ -30,6 +30,8 @@ class Funcionarios
         }
     }
 
+    virtual ~Funcionarios(){}
+
        void calcular_bonus() //bonus de 10%
     {
         if(verificador_salario(this->salario))
@@ -43,7 +45,7 @@ class Funcionarios
         }
     }
 
-    virtual void exibir_info()
+    virtual void exibir_info() //exibe as informacoes gerais dos funcionarios
     {
         if(verificador_salario(this->salario))
         {
@@ -91,6 +93,7 @@ class Funcionario_horista : public Funcionarios
         if(verificador(this->horas_trabalhadas,this->valor_por_hora))
         {
              this->salario+=(this->horas_trabalhadas*this->valor_por_hora*0.10);
+            cout << "Salario de " << get_nome() << " foi calculado \n";
         }else
         {
             cout << "Nao eh possivel calcular o salario porque existem dados faltando \n";
@@ -99,6 +102,7 @@ class Funcionario_horista : public Funcionarios
 
     void exibir_info() override
     {
+        cout << "Horista \n";
         Funcionarios::exibir_info();
         cout << "Horas trabalhadas: " << this->horas_trabalhadas << endl; 
         cout << "Valor por hora: " << this->valor_por_hora << endl;
@@ -131,6 +135,7 @@ class Funcionario_vendedor : public Funcionarios
         if(verificador(this->quantidade_vendas))
         {
             this->salario+= this->quantidade_vendas*0.10;
+            cout << "Salario de " << get_nome() << " foi calculado \n";
         } else
         {
             cout << "Nao e possivel calcular o salario \n";
@@ -141,10 +146,12 @@ class Funcionario_vendedor : public Funcionarios
     {
         if(verificador(this->quantidade_vendas))
         {
+            cout << "Vendedor(a) \n";
             Funcionarios::exibir_info();
             cout << "Vendas feitas: " << this->quantidade_vendas << endl;
         }else
         {
+            cout << "Vendedor(a) \n";
             this->quantidade_vendas = 0;
             Funcionarios::exibir_info();
             cout << "Vendas feitas: " << this->quantidade_vendas << endl;
@@ -168,6 +175,19 @@ class Empresa
             }
         }
         return nullptr;
+    }
+
+    int demicao(const string seach_nome)
+    {
+        int tamanho = firma.size();
+        for(int i=0 ; i<tamanho ; i++)
+        {
+            if(firma[i]->get_nome() == seach_nome)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
     public:
     void contratar_funcionario(Funcionarios* func)
@@ -216,6 +236,80 @@ class Empresa
             cout << "Funcionario nao foi encontrado \n";
         }
     }
+
+    void calcular_salario_horistas()
+    {
+        for(auto& nav : firma)
+        {
+
+            Funcionario_horista* horista = dynamic_cast<Funcionario_horista*>(nav);
+            if(horista!=nullptr)
+            {
+                horista->calcular_salario();
+                cout << endl;
+            }
+        }
+    }
+
+    void calcular_salario_horista_nome(const string nome)
+    {
+        if(achar_funcionario(nome)!=nullptr)
+        {
+            Funcionario_horista* horista = dynamic_cast<Funcionario_horista*>(achar_funcionario(nome));
+            horista->calcular_salario();
+        }else
+        {
+            cout << "Funcionario horista nao foi encontrado \n";
+        }
+    }
+
+    void calcular_salario_vendedores()
+    {
+        for(auto& nav : firma)
+        {
+            Funcionario_vendedor* vendedor = dynamic_cast<Funcionario_vendedor*>(nav);
+            if(vendedor!=nullptr)
+            {
+                vendedor->calcular_salario();
+                cout << endl;
+            }
+        }
+    }
+
+    void calcular_salario_vendedor_nome(const string nome)
+    {
+        if(achar_funcionario(nome)!=nullptr)
+        {
+           Funcionario_vendedor* vendedor = dynamic_cast<Funcionario_vendedor*>(achar_funcionario(nome));
+           vendedor->calcular_salario();
+        } else
+        {
+            cout << "Funcionario vendedor nao foi encontrado \n";
+        }
+    }
+
+    void demitir_funcionario_nome(const string nome)
+    {
+        int posicao = demicao(nome);
+      if(posicao!= -1)
+      {
+        cout << firma[posicao]->get_nome() << " foi demitido(a) \n";
+        firma.erase(firma.begin()+posicao);
+      } else
+      {
+        cout << "Fucionario nao foi encontrado \n";
+      }
+      
+    }
+
+    ~Empresa()
+    {
+        for(auto& nav : firma)
+        {
+            delete nav;
+        }
+    }
+    
 };
 
 int main()
@@ -223,6 +317,4 @@ int main()
      Empresa funcionarios;
      funcionarios.contratar_funcionario(new Funcionario_horista("Thaua",30,4,5));
      funcionarios.contratar_funcionario(new Funcionario_vendedor("Maria",40,2));
-     funcionarios.exibir_info_nome("Thaua");
-
 }
