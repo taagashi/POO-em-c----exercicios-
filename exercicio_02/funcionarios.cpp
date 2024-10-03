@@ -231,6 +231,7 @@ class Empresa
         {
             Funcionarios* funcionario = achar_funcionario(nome);
             funcionario->exibir_info();
+            cout << endl;
         } else
         {
             cout << "Funcionario nao foi encontrado \n";
@@ -294,6 +295,7 @@ class Empresa
       if(posicao!= -1)
       {
         cout << firma[posicao]->get_nome() << " foi demitido(a) \n";
+        delete firma[posicao];
         firma.erase(firma.begin()+posicao);
       } else
       {
@@ -312,9 +314,87 @@ class Empresa
     
 };
 
+void calcular_bonus_funcionarios(Empresa&);
+void calcular_bonus_nome(Empresa&, const string);
+void exibir_info_funcionarios(Empresa&);
+void exibir_info_nome(Empresa&, const string);
+void calcular_salario_horistas(Empresa&);
+void calcular_salario_horista_nome(Empresa&, const string);
+void calcular_salario_vendedores(Empresa&);
+void calcular_salario_vendedor_nome(Empresa&, const string);
+void demitir_funcionario_nome(Empresa&, const string);
+
+
+
 int main()
 {
      Empresa funcionarios;
-     funcionarios.contratar_funcionario(new Funcionario_horista("Thaua",30,4,5));
-     funcionarios.contratar_funcionario(new Funcionario_vendedor("Maria",40,2));
+     funcionarios.contratar_funcionario(new Funcionario_horista("Joao",2000,4,5));
+     funcionarios.contratar_funcionario(new Funcionario_vendedor("Maria",4000,2));
+     funcionarios.contratar_funcionario(new Funcionario_horista("Anderson",3000,5,6));
+     
+     exibir_info_funcionarios(funcionarios);
+     
+     calcular_bonus_funcionarios(funcionarios);
+     calcular_bonus_nome(funcionarios,"Anderson");
+     
+     calcular_salario_horistas(funcionarios);
+     calcular_salario_vendedores(funcionarios);
+     
+     exibir_info_nome(funcionarios, "Joao");
+     
+     demitir_funcionario_nome(funcionarios, "Joao");
+     
+     exibir_info_funcionarios(funcionarios);
+
+}
+
+
+
+
+
+
+void calcular_bonus_funcionarios(Empresa& funcionario)
+{
+    funcionario.calcular_bonus_funcionarios();
+}
+
+void calcular_bonus_nome(Empresa& funcionario, const string nome)
+{
+    funcionario.calcular_bonus_nome(nome);
+}
+
+void exibir_info_funcionarios(Empresa& funcionario)
+{
+    funcionario.exibir_info_funcionarios();
+}
+
+void exibir_info_nome(Empresa& funcionario, const string nome)
+{
+    funcionario.exibir_info_nome(nome);
+}
+
+void calcular_salario_horistas(Empresa& funcionario)
+{
+    funcionario.calcular_salario_horistas();
+}
+
+void calcular_salario_horista_nome(Empresa& funcionario, const string nome)
+{
+    funcionario.calcular_salario_horista_nome(nome);
+}
+
+void calcular_salario_vendedores(Empresa& funcionario)
+{
+    funcionario.calcular_salario_vendedores();
+}
+
+void calcular_salario_vendedor_nome(Empresa& funcionario, const string nome)
+{
+    funcionario.calcular_salario_vendedor_nome(nome);
+}
+
+void demitir_funcionario_nome(Empresa& funcionario, const string nome)
+{
+    funcionario.demitir_funcionario_nome(nome);
 }
