@@ -30,6 +30,8 @@ class Conta
         }
     }
 
+    virtual ~Conta(){}
+
     void depositar(float valor)
     {
         if(existe(this->saldo))
@@ -250,6 +252,14 @@ class Banco
         } else
         {
             cout << "Crie uma conta para efetuar acao \n";
+        }
+    }
+
+    ~Banco()
+    {
+        for(auto& nav : contas)
+        {
+            delete nav;
         }
     }
 
