@@ -347,6 +347,7 @@ int main()
      
      exibir_info_funcionarios(funcionarios);
 
+    return 0;
 }
 
 
