@@ -1,9 +1,6 @@
-Aqui está um enredo para praticar Programação Orientada a Objetos (POO) com 10 questões para você implementar em um programa:
-
 Enredo
 Você está criando um sistema para um zoológico fictício que cuida de diversos animais e tem uma equipe de funcionários que gerenciam as operações do zoológico. O sistema deverá registrar informações dos animais, controlar atividades como alimentação, e rastrear os funcionários responsáveis por cuidar dos animais. Cada animal tem características específicas e, dependendo de sua espécie, precisa de cuidados diferentes.
 
-10 Questões para Implementação
 Classe base Animal:
 Crie uma classe base chamada Animal, que tenha atributos como nome, idade, espécie e peso. Implemente um método para exibir essas informações.
 
@@ -21,9 +18,6 @@ Cada funcionário pode ser responsável por vários animais. Crie uma associaç�
 
 Classe Alimentacao:
 Crie uma classe Alimentacao que tenha atributos como o tipo de alimento e a quantidade. Cada Animal deve ter um método para alimentar o animal com uma instância dessa classe.
-
-Classe Veterinario:
-Crie uma subclasse de Funcionario chamada Veterinario, que além dos atributos de Funcionario, tenha um método adicional para realizar check-ups nos animais. O método deve modificar o estado de saúde de um animal, simulando que ele está sendo tratado.
 
 Encapsulamento e Validações:
 Garanta que os atributos sensíveis, como a idade e o peso dos animais, estejam encapsulados (privados) e forneça métodos de acesso e modificação que façam validações apropriadas (por exemplo, não permitir valores negativos).
